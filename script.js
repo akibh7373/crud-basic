@@ -12,11 +12,27 @@ function formValid() {
     msg.innerHTML = "Please fill the input";
   } else {
     console.log("success");
-    createPost();
+    acceptData();
   }
 }
 let data = {};
-function createPost() {
+function acceptData() {
   data["title"] = input.value;
-  posts.innerHTML = data.title;
+  posts.innerHTML += `
+  <div>
+            <p>${data.title}</p>
+            <span class="option">
+              <i onClick="updatePost(this)" class="fas fa-edit"></i>
+              <i onClick="deletePost(this)" class="fas fa-trash-alt"></i>
+            </span>
+          </div>
+  `;
+  input.value = "";
+}
+function deletePost(e) {
+  e.parentElement.parentElement.remove();
+}
+function updatePost(e) {
+  e.parentElement.parentElement.remove();
+  input.value = e.parentElement.previousElementSibling.innerHTML;
 }
